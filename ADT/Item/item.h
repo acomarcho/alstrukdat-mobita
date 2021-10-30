@@ -42,6 +42,16 @@ void displayItem(Item i);
 /* I.S. i terdefinisi */
 /* F.S. detail item sudah ditampilkan */
 
+void displayToDoItem(Item i);
+/* Proses: Menampilkan sebuah item dengan format "Asal -> Tujuan (Jenis Item)" */
+/* I.S. i terdefinisi */
+/* F.S. detail item sudah ditampilkan */
+
+void displayInProgItem(Item i);
+/* Proses: Menampilkan sebuah item dengan format "Jenis Item (Tujuan: Tujuan)" */
+/* I.S. i terdefinisi */
+/* F.S. detail item sudah ditampilkan */
+
 boolean isItemSame(Item i1, Item i2);
 /* Proses: Membandingkan kedua kesamaan antara 2 item */
 /* I.S. i1 dan i2 terdefinisi */

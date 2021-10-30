@@ -62,6 +62,54 @@ void displayItem(Item i){
 /* I.S. i terdefinisi */
 /* F.S. detail item sudah ditampilkan */
 
+void displayToDoItem(Item i){
+    printf("%c -> %c ", START(i), DESTINATION(i));
+
+    switch (JENIS(i)){
+    case 'N':
+        printf("(Normal Item)\n");
+        break;
+    case 'H':
+        printf("(Heavy Item)\n");
+        break;
+    case 'P':
+        printf("(Perishable Item, sisa waktu %d)\n", SISA_WAKTU(i));
+        break;
+    case 'V':
+        printf("(VVIP Item)\n");
+        break;
+    default:
+        break;
+    }
+}
+/* Proses: Menampilkan sebuah item dengan format "No. Asal -> Tujuan (Jenis Item)" */
+/* I.S. i terdefinisi */
+/* F.S. detail item sudah ditampilkan */
+
+void displayInProgItem(Item i){
+    switch (JENIS(i)){
+    case 'N':
+        printf("Normal Item ");
+        break;
+    case 'H':
+        printf("Heavy Item ");
+        break;
+    case 'P':
+        printf("Perishable Item ");
+        break;
+    case 'V':
+        printf("VVIP Item ");
+        break;
+    default:
+        break;
+    }
+
+    printf("(Tujuan: %c)\n", DESTINATION(i));
+}
+/* Proses: Menampilkan sebuah item dengan format "No. Jenis Item (Tujuan: Tujuan)" */
+/* I.S. i terdefinisi */
+/* F.S. detail item sudah ditampilkan */
+
 boolean isItemSame(Item i1, Item i2){
     if (MASUK(i1) != MASUK(i2)) return false;
     if (JENIS(i1) != JENIS(i2)) return false;
