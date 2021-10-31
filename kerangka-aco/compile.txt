@@ -1,1 +1,1 @@
-gcc -o main main.c ./ADT/point.c ./Listdin/listdin.c ./ADT/mesinfile.c ./Map/map.c ./ADT/matrix.c ./Item/item.c ./Queue/queue.c ./ADT/wordmachine.c ./ADT/charmachine.c ./LinkedList/list_linked.c ./LinkedList/node.c ./Stack/stack.c ./ADT/pcolor.c
+gcc -o main main.c ./ADT/point.c ./Listdin/listdin.c ./ADT/mesinfile.c ./Map/map.c ./ADT/matrix.c ./Item/item.c ./Queue/queue.c ./ADT/wordmachine.c ./ADT/charmachine.c ./LinkedList/list_linked.c ./LinkedList/node.c ./Stack/stack.c ./ADT/pcolor.c ./ADT/listpos.c

@@ -31,20 +31,20 @@ int length(ListPos l) {
   /* Mengirimkan nol jika List kosong */
   int i;
   i = 0;
-  while (i < LP_CAPACITY && ELMT(l, i) != LP_VAL_UNDEF) {
+  while (i < LP_CAPACITY && LP_ELMT(l, i) != LP_VAL_UNDEF) {
     i ++;
   }
   return i;
 }
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid(ListPos l, int i) {
+boolean LP_isIdxValid(ListPos l, int i) {
   /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
   /* yaitu antara indeks yang terdefinisi utk container*/
   return (i >= 0 && i < LP_CAPACITY);
 }
 
-boolean isIdxEff(ListPos l, int i) {
+boolean LP_isIdxEff(ListPos l, int i) {
   /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
   /* yaitu antara 0..length(l)-1 */
   return (i >= 0 && i < length(l));
@@ -108,7 +108,7 @@ void displayList(ListPos l) {
     printf("[");
     int i;
     for(i = 0; i < length(l); i++) {
-      printf("%d", ELMT(l, i));
+      printf("%d", LP_ELMT(l, i));
       if (i != length(l) - 1) {
         printf(",");
       }
@@ -131,9 +131,9 @@ ListPos plusMinusTab(ListPos l1, ListPos l2, boolean plus) {
   int i;
   for (i = 0; i < length(l1); i ++) {
     if (plus) {
-      LP_ELMT(result, i) = ELMT(l1, i) + ELMT(l2, i);
+      LP_ELMT(result, i) = LP_ELMT(l1, i) + LP_ELMT(l2, i);
     } else {
-      LP_ELMT(result, i) = ELMT(l1, i) - ELMT(l2, i);
+      LP_ELMT(result, i) = LP_ELMT(l1, i) - LP_ELMT(l2, i);
     }
   }
   return result;
@@ -151,7 +151,7 @@ boolean isListEqual(ListPos l1, ListPos l2) {
     int i = 0;
     boolean isEqual = true;
     while (i < length(l1) && isEqual) {
-      if (ELMT(l1, i) != ELMT(l2, i)) {
+      if (LP_ELMT(l1, i) != LP_ELMT(l2, i)) {
         isEqual = false;
       } else {
         i += 1;
@@ -175,7 +175,7 @@ int indexOf(ListPos l, LP_ElType val) {
     int i = 0;
     boolean isFound = false;
     while (i < length(l) && !isFound) {
-      if (ELMT(l, i) == val) {
+      if (LP_ELMT(l, i) == val) {
         isFound = true;
       } else {
         i += 1;
@@ -195,15 +195,15 @@ void extremes(ListPos l, LP_ElType *max, LP_ElType *min) {
   /* I.S. List l tidak kosong */
   /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
-  LP_ElType minVal = ELMT(l, 0);
-  LP_ElType maxVal = ELMT(l, 0);
+  LP_ElType minVal = LP_ELMT(l, 0);
+  LP_ElType maxVal = LP_ELMT(l, 0);
   int i;
   for (i = 1; i < length(l); i++) {
-    if (ELMT(l, i) > maxVal) {
-      maxVal = ELMT(l, i);
+    if (LP_ELMT(l, i) > maxVal) {
+      maxVal = LP_ELMT(l, i);
     }
-    if (ELMT(l, i) < minVal) {
-      minVal = ELMT(l, i);
+    if (LP_ELMT(l, i) < minVal) {
+      minVal = LP_ELMT(l, i);
     }
   }
   *max = maxVal;
@@ -217,7 +217,7 @@ boolean isAllEven(ListPos l) {
   int i = 0;
   boolean foundOdd = false;
   while (i < length(l) && !foundOdd) {
-    if (ELMT(l, i) % 2 != 0) {
+    if (LP_ELMT(l, i) % 2 != 0) {
       foundOdd = true;
     } else {
       i += 1;
@@ -238,15 +238,15 @@ void sort(ListPos *l, boolean asc) {
   for (i = 0; i < length(*l); i++) {
     for (j = 0; j < length(*l) - i - 1; j++) {
       if (asc) {
-        if (ELMT(*l, j) > ELMT(*l, j+1)) {
-          LP_ElType tmp = ELMT(*l, j);
-          LP_ELMT(*l, j) = ELMT(*l, j+1);
+        if (LP_ELMT(*l, j) > LP_ELMT(*l, j+1)) {
+          LP_ElType tmp = LP_ELMT(*l, j);
+          LP_ELMT(*l, j) = LP_ELMT(*l, j+1);
           LP_ELMT(*l, j+1) = tmp;
         }
       } else {
-        if (ELMT(*l, j) < ELMT(*l, j+1)) {
-          LP_ElType tmp = ELMT(*l, j);
-          LP_ELMT(*l, j) = ELMT(*l, j+1);
+        if (LP_ELMT(*l, j) < LP_ELMT(*l, j+1)) {
+          LP_ElType tmp = LP_ELMT(*l, j);
+          LP_ELMT(*l, j) = LP_ELMT(*l, j+1);
           LP_ELMT(*l, j+1) = tmp;
         }
       }
@@ -271,6 +271,6 @@ void deleteLast(ListPos *l, LP_ElType *val) {
   /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
   /*      Banyaknya elemen List berkurang satu */
   /*      List l mungkin menjadi kosong */
-  *val = ELMT(*l, length(*l) - 1);
+  *val = LP_ELMT(*l, length(*l) - 1);
   LP_ELMT(*l, length(*l) - 1) = LP_VAL_UNDEF;
 }

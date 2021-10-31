@@ -48,10 +48,10 @@ int length(ListPos l);
 /* Mengirimkan nol jika List kosong */
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid(ListPos l, int i);
+boolean LP_isIdxValid(ListPos l, int i);
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean isIdxEff(ListPos l, int i);
+boolean LP_isIdxEff(ListPos l, int i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
 /* yaitu antara 0..length(l)-1 */
 
