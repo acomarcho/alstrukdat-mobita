@@ -4,7 +4,6 @@
 #include "boolean.h"
 #include "point.h"
 #include "bag.h"
-#include "TrashBox_Item.h"
 #include "time.h"
 
 void MOVEPos(char *POS_First, char POS_Moved);
