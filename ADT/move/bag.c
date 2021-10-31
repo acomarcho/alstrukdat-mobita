@@ -54,6 +54,7 @@ void Drop_Off(BAG *B, Item *item)
         --;
     }
 }
+
 boolean IsThere_Item(char jenis_Item, BAG bag)
 /* Mengecek apakah ada item tertentu di bag. Jika ya maka akan mengirimkan true, jika tidak maka akan mengirimkan false */
 {
@@ -66,6 +67,7 @@ boolean IsThere_Item(char jenis_Item, BAG bag)
     }
     return false;
 }
+
 boolean iSthereDone(BAG B, char Dest)
 /* Mengecek apakah terdapat item yang berhasil diantarkan ke destinationnya */
 {
@@ -78,6 +80,7 @@ boolean iSthereDone(BAG B, char Dest)
     }
     return false;
 }
+
 boolean isTheItemDone(BAG B, char Jenis_Item, char Dest)
 {
     for (int i = IDX_TOP(B); i >= 0; i--)
@@ -89,6 +92,7 @@ boolean isTheItemDone(BAG B, char Jenis_Item, char Dest)
     }
     return false;
 }
+
 int NumberOfItemDone(BAG B, char Jenis_Item, char Dest)
 /* Menghitung banyaknya item berjenis tertentu berhasil diantarkan ke destination */
 {
