@@ -7,6 +7,7 @@
 #include "ADT/wordmachine.h"
 #include "Stack/stack.h"
 #include "LinkedList/list_linked.h"
+#include "ADT/listpos.h"
 
 void printWord(fWord word) {
   for (int i = 0; i < word.length; i ++) {
@@ -125,10 +126,12 @@ int main() {
   // ======================== INISIALISASI GAME ======================== //
   int time = 1;
   int money = 0;
+  POINT Headquarters = MakePOINT(hqX, hqY);
   POINT mobitaLoc = MakePOINT(hqX, hqY);
   Stack bag; ST_CreateStack(&bag);
   List toDoList; LL_CreateList(&toDoList);
   List inProgressList; LL_CreateList(&inProgressList);
+  ListPos inventory; CreateListPos(&inventory);
   // yang sudah ada: map, quePesanan, listBangunan.
   // ======================== END OF INISIALISASI GAME ======================== //
   // ======================== TES MESIN KATA ======================== //
@@ -328,6 +331,109 @@ int main() {
           printf("Tidak ada pesanan yang dapat diantarkan!\n");
         }
       }
+    } else if (isWordEqual(currentWord, "BUY")) { // COMMAND BUY
+      if ((Absis(mobitaLoc) == Absis(Headquarters)) && (Ordinat(mobitaLoc) == Ordinat(Headquarters))) {
+        printf("Uang Anda sekarang: %d Yen\n", money);
+        printf("Gadget yang tersedia:\n");
+        printf("1. Kain Pembungkus Waktu (800 Yen)\n");
+        printf("2. Senter Pembesar (1200 Yen)\n");
+        printf("3. Pintu Kemana Saja (1500 Yen)\n");
+        printf("4. Mesin Waktu (3000 Yen)\n");
+        printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n\n");
+        printf("ENTER COMMAND: ");
+        advWord();
+        int pilihan_buy = wordToInt2(currentWord);
+        if (pilihan_buy == 0) {
+          printf("Anda memilih untuk kembali.\n");
+        } else if (pilihan_buy == 1) {
+          if (money >= 800) {
+            money -= 800;
+            printf("Kain Pembungkus Waktu berhasil dibeli!\n");
+            printf("Uang Anda sekarang: %d Yen\n", money);
+          } else {
+            printf("Uang tidak cukup untuk membeli gadget!\n");
+          }
+        } else if (pilihan_buy == 2) {
+          if (money >= 1200) {
+            money -= 1200;
+            printf("Senter Pembesar berhasil dibeli!\n");
+            printf("Uang Anda sekarang: %d Yen\n", money);
+          } else {
+            printf("Uang tidak cukup untuk membeli gadget!\n");
+          }
+        } else if (pilihan_buy == 3) {
+          if (money >= 1500) {
+            money -= 1500;
+            printf("Pintu Kemana Saja berhasil dibeli!\n");
+            printf("Uang Anda sekarang: %d Yen\n", money);
+          } else {
+            printf("Uang tidak cukup untuk membeli gadget!\n");
+          }
+        } else if (pilihan_buy == 4) {
+          if (money >= 3000) {
+            money -= 3000;
+            printf("Mesin Waktu berhasil dibeli!\n");
+            printf("Uang Anda sekarang: %d Yen\n", money);
+          } else {
+            printf("Uang tidak cukup untuk membeli gadget!\n");
+          }
+        }
+      } else {
+        printf("Anda tidak sedang berada di Headquarters");
+      }
+    } else if (isWordEqual(currentWord, "INVENTORY")) { // COMMAND INVENTORY
+      for (int i = 0; i < LP_CAPACITY; i++) {
+        printf("%d. ", i+1);
+        if (LP_ELMT(inventory, i) == LP_VAL_UNDEF) {
+          printf("-\n");
+        } else if (LP_ELMT(inventory, i) == 1) {
+          printf("Kain Pembungkus Waktu\n");
+        } else if (LP_ELMT(inventory, i) == 2) {
+          printf("Senter Pembesar\n");
+        } else if (LP_ELMT(inventory, i) == 3) {
+          printf("Pintu Kemana Saja\n");
+        } else if (LP_ELMT(inventory, i) == 4) {
+          printf("Mesin Waktu\n");
+        }
+      }
+      printf("Gadget mana yang ingin digunakan? (ketik 0 jika ingin kembali)\n\n");
+      printf("ENTER COMMAND: ");
+      advWord();
+      int pilihan_inventory = wordToInt2(currentWord);
+      if (pilihan_inventory == 0) {
+        printf("Anda memilih untuk kembali.\n");
+      } else {
+        for (int i = 1; i <= LP_CAPACITY; i++) {
+          if (i == pilihan_inventory) {
+            if (LP_ELMT(inventory, i-1) == LP_VAL_UNDEF) {
+              printf("Tidak ada Gadget yang dapat digunakan!\n");
+            } else if (LP_ELMT(inventory, i-1) == 1) {
+              LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
+              printf("Kain Pembungkus Waktu berhasil digunakan!\n");
+            } else if (LP_ELMT(inventory, i-1) == 2) {
+              LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
+              printf("Senter Pembesar berhasil digunakan!\n");
+            } else if (LP_ELMT(inventory, i-1) == 3) {
+              LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
+              printf("Pintu Kemana Saja berhasil digunakan!\n");
+            } else if (LP_ELMT(inventory, i-1) == 4) {
+              LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
+              printf("Mesin Waktu berhasil digunakan!\n");
+            }
+            break;
+          }
+        }
+      }
+    } else if (isWordEqual(currentWord, "HELP")) { // COMMAND HELP
+      printf("1. MOVE -> Untuk berpindah ke lokasi selanjutnya\n");
+      printf("2. PICK_UP -> Untuk mengambil item di lokasi sekarang\n");
+      printf("3. DROP_OFF -> Untuk mengantarkan item ke lokasi sekarang\n");
+      printf("4. MAP -> Untuk memunculkan peta\n");
+      printf("5. TO_DO -> Untuk menampilkan pesanan yang masuk ke To Do List\n");
+      printf("6. IN_PROGRESS -> Untuk menampilkan pesanan yang sedang dikerjakan\n");
+      printf("7. BUY -> Untuk menampilkan gadget yang dapat dibeli dan membelinya\n");
+      printf("8. INVENTORY -> Untuk melihat gadget yang dimiliki dan menggunakannya\n");
+      printf("9. HELP -> Untuk mengeluarkan list command dan kegunaannya\n");
     }
   }
   // ======================== END OF LOOP GAME ======================== //
