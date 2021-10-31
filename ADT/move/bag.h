@@ -35,6 +35,12 @@ boolean IsEmptyBag(BAG B);
 boolean IsFullBag(BAG B);
 /* Mengecek Apakah Bag Penuh, Jika penuh Mengirimkan True, jika sebaliknya mengirimkan false */
 
+boolean IsBagMax(BAG B);
+/* Mengecek apakah kapasitas dari Bag melebih kapasitas maksimum dari tas yang mungkin */
+
+void IncreaseCapacity(BAG *B);
+/* Menambahkan jumlah kapasitas dari BAG */
+
 void GetItem(BAG *B, Item item);
 /* Melakukan Get Elemen dengan mengikuti Aturan LIFO (Last In First Out) */
 
@@ -52,4 +58,5 @@ boolean isTheItemDone(BAG B, char Jenis_Item, char Dest);
 
 int NumberOfItemDone(BAG B, char Jenis_Item, char Dest);
 /* Menghitung banyaknya item berjenis tertentu berhasil diantarkan ke destination */
+
 #endif
