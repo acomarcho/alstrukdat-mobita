@@ -139,4 +139,8 @@ void deleteLast(ListPos *l, LP_ElType *val);
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
 
+int near_empty(ListPos l);
+
+void send_to_inventory(ListPos *l, LP_ElType val);
+
 #endif

@@ -29,12 +29,13 @@ void CreateListPos(ListPos *l) {
 int length(ListPos l) {
   /* Mengirimkan banyaknya elemen efektif List */
   /* Mengirimkan nol jika List kosong */
-  int i;
-  i = 0;
-  while (i < LP_CAPACITY && LP_ELMT(l, i) != LP_VAL_UNDEF) {
-    i ++;
+  int count = 0;
+  for (int i = 0; i < LP_CAPACITY; i++) {
+    if (LP_ELMT(l, i) != LP_VAL_UNDEF) {
+      count += 1;
+    }
   }
-  return i;
+  return count;
 }
 
 /* ********** Test Indeks yang valid ********** */
@@ -273,4 +274,19 @@ void deleteLast(ListPos *l, LP_ElType *val) {
   /*      List l mungkin menjadi kosong */
   *val = LP_ELMT(*l, length(*l) - 1);
   LP_ELMT(*l, length(*l) - 1) = LP_VAL_UNDEF;
+}
+
+int near_empty(ListPos l) {
+  int near = 0;
+  while (near < LP_CAPACITY) {
+    if (LP_ELMT(l, near) == LP_VAL_UNDEF) {
+      break;
+    }
+    near += 1;
+  }
+  return near;
+}
+
+void send_to_inventory(ListPos *l, LP_ElType val) {
+  LP_ELMT(*l, near_empty(*l)) = val;
 }
