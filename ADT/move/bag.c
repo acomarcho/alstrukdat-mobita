@@ -8,13 +8,28 @@ void CreateBag(BAG *B)
     IDX_TOP(*B) = -1;
 }
 boolean IsEmptyBag(BAG B)
+/* Mengecek Apakah Bag Kosong, Jika kosong Mengirimkan True, jika sebaliknya mengirimkan false */
 {
     return IDX_TOP(B) == -1;
 }
 
 boolean IsFullBag(BAG B)
+/* Mengecek Apakah Bag Penuh, Jika penuh Mengirimkan True, jika sebaliknya mengirimkan false */
 {
-    return IDX_TOP(B) == CAPACITY(B) - 1;
+    return (IDX_TOP(B) == CAPACITY(B) - 1);
+}
+
+boolean IsBagMax(BAG B)
+/* Mengecek apakah kapasitas dari Bag sama dengan kapasitas maksimum dari tas yang mungkin. Apabila ya mengirimkan true, jika tidak mengirimkan false */
+{
+    return (CAPACITY(B) == MaxCAPACITY);
+}
+
+void IncreaseCapacity(BAG *B)
+/* Menambahkan jumlah kapasitas dari BAG */
+{
+    CAPACITY(*B)
+    ++;
 }
 
 void GetItem(BAG *B, Item item)
@@ -27,6 +42,7 @@ void GetItem(BAG *B, Item item)
         INFO(*B, IDX_TOP(*B)) = item;
     }
 }
+
 void Drop_Off(BAG *B, Item *item)
 /* Prekondisi : Elemen Val pasti ada di BAG */
 /* Melakukan penghapusan pada item yang ada di tas dengan mengikuti prinsip LIFO dimana item yang didrop out adalah item di tumpukan teratas */
