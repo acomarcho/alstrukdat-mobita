@@ -10,17 +10,17 @@
 #include "boolean.h"
 
 /*  Kamus Umum */
-#define CAPACITY 100
+#define LP_CAPACITY 5
 /* Kapasitas penyimpanan */
 #define IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
-#define VAL_UNDEF -999
+#define LP_VAL_UNDEF -999
 /* Nilai elemen tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef int ElType;  /* type elemen List */
+typedef int LP_ElType;  /* type elemen List */
 typedef struct {
-   ElType contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+   LP_ElType contents[LP_CAPACITY]; /* memori tempat penyimpan elemen (container) */
 } ListPos;
 /* Indeks yang digunakan [0..CAPACITY-1] */
 /* Jika l adalah ListPos, cara deklarasi dan akses: */
@@ -32,7 +32,7 @@ typedef struct {
    Definisi elemen pertama: ELMT(l,i) dengan i=0 */
 
 /* ********** SELEKTOR ********** */
-#define ELMT(l, i) (l).contents[(i)]
+#define LP_ELMT(l, i) (l).contents[(i)]
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create List kosong  */
@@ -48,10 +48,10 @@ int length(ListPos l);
 /* Mengirimkan nol jika List kosong */
 
 /* ********** Test Indeks yang valid ********** */
-boolean isIdxValid(ListPos l, int i);
+boolean LP_isIdxValid(ListPos l, int i);
 /* Mengirimkan true jika i adalah indeks yang valid utk kapasitas List l */
 /* yaitu antara indeks yang terdefinisi utk container*/
-boolean isIdxEff(ListPos l, int i);
+boolean LP_isIdxEff(ListPos l, int i);
 /* Mengirimkan true jika i adalah indeks yang terdefinisi utk List l */
 /* yaitu antara 0..length(l)-1 */
 
@@ -101,14 +101,14 @@ boolean isListEqual(ListPos l1, ListPos l2);
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : List boleh kosong!! *** */
-int indexOf(ListPos l, ElType val);
+int indexOf(ListPos l, LP_ElType val);
 /* Search apakah ada elemen List l yang bernilai val */
 /* Jika ada, menghasilkan indeks i terkecil, dengan ELMT(l,i) = val */
 /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
 /* Skema Searching yang digunakan bebas */
 
 /* ********** NILAI EKSTREM ********** */
-void extremes(ListPos l, ElType *max, ElType *min);
+void extremes(ListPos l, LP_ElType *max, LP_ElType *min);
 /* I.S. List l tidak kosong */
 /* F.S. Max berisi nilai terbesar dalam l;
         Min berisi nilai terkecil dalam l */
@@ -127,16 +127,20 @@ void sort(ListPos *l, boolean asc);
 
 /* ********** MENAMBAH DAN MENGHAPUS ELEMEN DI AKHIR ********** */
 /* *** Menambahkan elemen terakhir *** */
-void insertLast(ListPos *l, ElType val);
+void insertLast(ListPos *l, LP_ElType val);
 /* Proses: Menambahkan val sebagai elemen terakhir List */
 /* I.S. List l boleh kosong, tetapi tidak penuh */
 /* F.S. val adalah elemen terakhir l yang baru */
 /* ********** MENGHAPUS ELEMEN ********** */
-void deleteLast(ListPos *l, ElType *val);
+void deleteLast(ListPos *l, LP_ElType *val);
 /* Proses : Menghapus elemen terakhir List */
 /* I.S. List tidak kosong */
 /* F.S. val adalah nilai elemen terakhir l sebelum penghapusan, */
 /*      Banyaknya elemen List berkurang satu */
 /*      List l mungkin menjadi kosong */
+
+int near_empty(ListPos l);
+
+void send_to_inventory(ListPos *l, LP_ElType val);
 
 #endif
