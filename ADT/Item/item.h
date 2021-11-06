@@ -16,12 +16,12 @@ typedef struct {
     char jenis;
 } Item;
 
-void CreateItem(Item *i, int masuk, char start, char dest, char jenis);
+void I_CreateItem(Item *i, int masuk, char start, char dest, char jenis);
 /* Proses: Mendeklarasikan Item */
 /* I.S. sembarang */
 /* F.S. terbentuk sebuah item */
 
-void CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus);
+void I_CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus);
 /* Proses: Mendeklarasikan Perishable Item */
 /* I.S. sembarang */
 /* F.S. terbentuk sebuah perishable item */
@@ -37,7 +37,7 @@ void CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus)
 #define DESTINATION(i) (i).dest
 
 
-void displayItem(Item i);
+void I_displayItem(Item i);
 /* Proses: Menampilkan sebuah item dengan format "Waktu : Asal -> Tujuan (Jenis Item)" */
 /* I.S. i terdefinisi */
 /* F.S. detail item sudah ditampilkan */
@@ -52,7 +52,7 @@ void displayInProgItem(Item i);
 /* I.S. i terdefinisi */
 /* F.S. detail item sudah ditampilkan */
 
-boolean isItemSame(Item i1, Item i2);
+boolean I_isItemSame(Item i1, Item i2);
 /* Proses: Membandingkan kedua kesamaan antara 2 item */
 /* I.S. i1 dan i2 terdefinisi */
 /* F.S. Mengeluarkan true jika i1 == i2. False jika sebaliknya */

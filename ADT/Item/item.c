@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "item.h"
 
-void CreateItem(Item *i, int masuk, char start, char dest, char jenis){
+void I_CreateItem(Item *i, int masuk, char start, char dest, char jenis){
     MASUK(*i) = masuk;
     START(*i) = start;
     DESTINATION(*i) = dest;
@@ -24,7 +24,7 @@ void CreateItem(Item *i, int masuk, char start, char dest, char jenis){
 /* I.S. sembarang */
 /* F.S. terbentuk sebuah item */
 
-void CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus){
+void I_CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus){
     MASUK(*i) = masuk;
     START(*i) = start;
     DESTINATION(*i) = dest;
@@ -38,7 +38,7 @@ void CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus)
 /* F.S. terbentuk sebuah perishable item */
 
 
-void displayItem(Item i){
+void I_displayItem(Item i){
     printf("%d : %c -> %c ", MASUK(i), START(i), DESTINATION(i));
 
     switch (JENIS(i)){
@@ -110,7 +110,7 @@ void displayInProgItem(Item i){
 /* I.S. i terdefinisi */
 /* F.S. detail item sudah ditampilkan */
 
-boolean isItemSame(Item i1, Item i2){
+boolean I_isItemSame(Item i1, Item i2){
     if (MASUK(i1) != MASUK(i2)) return false;
     if (JENIS(i1) != JENIS(i2)) return false;
     if (START(i1) != START(i2)) return false;

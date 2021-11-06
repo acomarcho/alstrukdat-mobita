@@ -3,33 +3,33 @@
 
 int main(){
     List l;
-    CreateListLinked(&l);
-    displayListLinked(l);
+    LL_CreateList(&l);
+    LL_displayList(l);
     printf("\n");
 
     Item i1, i2, i3, p1;
-    CreateItem(&i1, 1, 'G', 'N', 'N');
-    CreateItem(&i2, 2, 'D', 'M', 'N');
-    CreateItem(&i3, 2, 'F', 'H', 'V');
+    I_CreateItem(&i1, 1, 'G', 'N', 'N');
+    I_CreateItem(&i2, 2, 'D', 'M', 'N');
+    I_CreateItem(&i3, 2, 'F', 'H', 'V');
     // displayItem(i1);
 
-    CreatePerishableItem(&p1, 10, 'P', 'Q', 20);
+    I_CreatePerishableItem(&p1, 10, 'P', 'Q', 20);
     // displayItem(p1);
 
-    insertLastLL(&l, p1);
-    displayListLinked(l);
+    LL_insertLast(&l, p1);
+    LL_displayList(l);
     printf("\n");
 
-    insertLastLL(&l, i3);
-    displayListLinked(l);
+    LL_insertLast(&l, i3);
+    LL_displayList(l);
     printf("\n");
     
-    insertLastLL(&l, i1);
-    displayListLinked(l);
+    LL_insertLast(&l, i1);
+    LL_displayList(l);
     printf("\n");
     
-    insertLastLL(&l, i2);
-    displayListLinked(l);
+    LL_insertLast(&l, i2);
+    LL_displayList(l);
     printf("\n");
 
     // Catatan : Belum ada queue di sini, jadi belum diurutkan berdasarkan waktu

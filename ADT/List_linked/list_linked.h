@@ -21,24 +21,24 @@ typedef Address List;
 
 /* PROTOTYPE */
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateListLinked(List *l);
+void LL_CreateList(List *l);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
 /****************** TEST LIST KOSONG ******************/
-boolean isEmptyLL(List l);
+boolean LL_isEmpty(List l);
 /* Mengirim true jika list kosong */
 
 /****************** GETTER SETTER ******************/
-ElType getElmtLL(List l, int idx);
+ElType LL_getElmt(List l, int idx);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengembalikan nilai elemen l pada indeks idx */
 
-void setElmtLL(List *l, int idx, ElType val);
+void LL_setElmt(List *l, int idx, ElType val);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 
-int indexOfLL(List l, ElType val);
+int LL_indexOf(List l, ElType val);
 /* I.S. l, val terdefinisi */
 /* F.S. Mencari apakah ada elemen list l yang bernilai val */
 /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
@@ -46,42 +46,42 @@ int indexOfLL(List l, ElType val);
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void insertFirstLL(List *l, ElType val);
+void LL_insertFirst(List *l, ElType val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai val jika alokasi berhasil. */
 /* Jika alokasi gagal: I.S.= F.S. */
 
-void insertLastLL(List *l, ElType val);
+void LL_insertLast(List *l, ElType val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
 /* bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
-void insertAtLL(List *l, ElType val, int idx);
+void LL_insertAt(List *l, ElType val, int idx);
 /* I.S. l tidak mungkin kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menyisipkan elemen dalam list pada indeks ke-idx (bukan menimpa elemen di i) */
 /* yang bernilai val jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void deleteFirstLL(List *l, ElType *val);
+void LL_deleteFirst(List *l, ElType *val);
 /* I.S. List l tidak kosong  */
 /* F.S. Elemen pertama list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen pertama di-dealokasi */
-void deleteLastLL(List *l, ElType *val);
+void LL_deleteLast(List *l, ElType *val);
 /* I.S. list tidak kosong */
 /* F.S. Elemen terakhir list dihapus: nilai info disimpan pada x */
 /*      dan alamat elemen terakhir di-dealokasi */
 
-void deleteAtLL(List *l, int idx, ElType *val);
+void LL_deleteAt(List *l, int idx, ElType *val);
 /* I.S. list tidak kosong, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
 
 /****************** PROSES SEMUA ELEMEN LIST ******************/
-void displayListLinked(List l);
+void LL_displayList(List l);
 // void printInfo(List l);
 /* I.S. List mungkin kosong */
 /* F.S. Jika list tidak kosong, isi list dicetak ke bawah */
@@ -102,11 +102,11 @@ void displayInProgress(List l);
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 
-int lengthLL(List l);
+int LL_length(List l);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
 /****************** PROSES TERHADAP LIST ******************/
-List concatLL(List l1, List l2) ;
+List LL_concat(List l1, List l2) ;
 /* I.S. l1 dan l2 sembarang */
 /* F.S. l1 dan l2 kosong, l3 adalah hasil konkatenasi l1 & l2 */
 /* Konkatenasi dua buah list : l1 dan l2    */
