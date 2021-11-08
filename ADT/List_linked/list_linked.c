@@ -24,30 +24,26 @@ boolean isEmptyLL(List l) {
 ElType getElmtLL(List l, int idx) {
   /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
   /* F.S. Mengembalikan nilai elemen l pada indeks idx */
-  int i = 0;
-  Address p = LL_FIRST(l);
-  while (i < idx) {
-    i ++;
-    p = NODE_NEXT(p);
-  }
-  // i = idx
-  return NODE_INFO(p);
+  Address now = LL_FIRST(l);
+	int i=0;
+  for(i=0;i<idx;i++){
+    now = NODE_NEXT(now);
+	}
+	return (NODE_INFO(now));  
 }
 
 void setElmtLL(List *l, int idx, ElType val) {
   /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
   /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
-  int i = 0;
-  Address p = LL_FIRST(*l);
-  while (i < idx) {
-    i ++;
-    p = NODE_NEXT(p);
-  }
-  // i = idx
-  NODE_INFO(p) = val; 
+  Address now=LL_FIRST(*l);
+  int i=0;
+  for(i=0;i<idx;i++){
+    now = NODE_NEXT(now);
+  }NODE_INFO(now)=val;
 }
 
 int indexOfLL(List l, ElType val) {
+
   /* I.S. l, val terdefinisi */
   /* F.S. Mencari apakah ada elemen list l yang bernilai val */
   /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
