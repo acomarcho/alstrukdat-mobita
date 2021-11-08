@@ -104,8 +104,9 @@ void Q_displayQueue(Queue q) {
   if (Q_isEmpty(q)) {
     printf("[]");
   } else {
+    int i=0;
     while (Q_IDX_HEAD(q) <= Q_IDX_TAIL(q)){
-          printf("%d. %c -> %c ", Q_IDX_HEAD(q)+1, START(Q_HEAD(q)), DESTINATION(Q_HEAD(q)));
+          printf("%d. %c -> %c ", ++i, START(Q_HEAD(q)), DESTINATION(Q_HEAD(q)));
           switch (JENIS(Q_HEAD(q))){
           case 'N':
               printf("(Normal Item)\n");

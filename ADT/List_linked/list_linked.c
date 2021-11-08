@@ -270,3 +270,11 @@ List LL_concat(List l1, List l2)  {
   }
   return l3;
 }
+
+void updatePesanan(int waktu, Queue *pesanan, List *todo){
+    while (!Q_isEmpty(*pesanan) && MASUK(Q_HEAD(*pesanan)) <= waktu){
+        Item I;
+        Q_dequeue(pesanan, &I);
+        LL_insertLast(todo, I);
+    }
+}
