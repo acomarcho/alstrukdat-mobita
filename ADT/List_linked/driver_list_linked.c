@@ -40,5 +40,4 @@ int main(){
     displayInProgress(l);
     printf("\n");
 }
-
 // gcc -o main driver_list_linked.c list_linked.c node.c ../Item/item.c
