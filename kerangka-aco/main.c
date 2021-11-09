@@ -132,6 +132,7 @@ int main() {
   List toDoList; LL_CreateList(&toDoList);
   List inProgressList; LL_CreateList(&inProgressList);
   ListPos inventory; CreateListPos(&inventory);
+  ListPos gadget_in_use; CreateListPos(&gadget_in_use);
   // yang sudah ada: map, quePesanan, listBangunan.
   // ======================== END OF INISIALISASI GAME ======================== //
   // ======================== TES MESIN KATA ======================== //
@@ -262,7 +263,11 @@ int main() {
         Absis(mobitaLoc) = Absis(bangunan.locCoords);
         Ordinat(mobitaLoc) = Ordinat(bangunan.locCoords);
         printf("Mobita sekarang berada di titik %c (%d,%d)!\n", bangunan.locName, Absis(mobitaLoc), Ordinat(mobitaLoc));
-        time ++;
+        if (indexOf(gadget_in_use, 3) != LP_IDX_UNDEF) {
+          LP_ELMT(gadget_in_use, indexOf(gadget_in_use, 3)) = LP_VAL_UNDEF;
+        } else {
+          time ++;
+        }
       }
     } else if (isWordEqual(currentWord, "PICK_UP")) { // COMMAND PICK_UP
       // Cari item pada toDoList.
@@ -446,6 +451,7 @@ int main() {
               printf("Senter Pembesar berhasil digunakan!\n");
             } else if (LP_ELMT(inventory, i-1) == 3) {
               LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
+              gadget_now(&gadget_in_use, 3);
               printf("Pintu Kemana Saja berhasil digunakan!\n");
             } else if (LP_ELMT(inventory, i-1) == 4) {
               LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;

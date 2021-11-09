@@ -12,7 +12,7 @@
 /*  Kamus Umum */
 #define LP_CAPACITY 5
 /* Kapasitas penyimpanan */
-#define IDX_UNDEF -1
+#define LP_IDX_UNDEF -1
 /* Indeks tak terdefinisi*/
 #define LP_VAL_UNDEF -999
 /* Nilai elemen tak terdefinisi*/
@@ -142,5 +142,7 @@ void deleteLast(ListPos *l, LP_ElType *val);
 int near_empty(ListPos l);
 
 void send_to_inventory(ListPos *l, LP_ElType val);
+
+void gadget_now(ListPos *l, LP_ElType val);
 
 #endif

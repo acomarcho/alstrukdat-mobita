@@ -171,11 +171,11 @@ int indexOf(ListPos l, LP_ElType val) {
   /* Jika tidak ada atau jika l kosong, mengirimkan IDX_UNDEF */
   /* Skema Searching yang digunakan bebas */
   if (isEmpty(l)) {
-    return IDX_UNDEF;
+    return LP_IDX_UNDEF;
   } else {
     int i = 0;
     boolean isFound = false;
-    while (i < length(l) && !isFound) {
+    while (i < LP_CAPACITY && !isFound) {
       if (LP_ELMT(l, i) == val) {
         isFound = true;
       } else {
@@ -185,7 +185,7 @@ int indexOf(ListPos l, LP_ElType val) {
     if (isFound) {
       return i;
     } else {
-      return IDX_UNDEF;
+      return LP_IDX_UNDEF;
     }
   }
 }
@@ -288,5 +288,9 @@ int near_empty(ListPos l) {
 }
 
 void send_to_inventory(ListPos *l, LP_ElType val) {
+  LP_ELMT(*l, near_empty(*l)) = val;
+}
+
+void gadget_now(ListPos *l, LP_ElType val) {
   LP_ELMT(*l, near_empty(*l)) = val;
 }
