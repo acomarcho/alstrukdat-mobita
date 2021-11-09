@@ -341,9 +341,17 @@ int main() {
           printf("3. Pintu Kemana Saja (1500 Yen)\n");
           printf("4. Mesin Waktu (3000 Yen)\n");
           printf("Gadget mana yang ingin kau beli? (ketik 0 jika ingin kembali)\n\n");
-          printf("ENTER COMMAND: ");
-          advWord();
-          int pilihan_buy = wordToInt2(currentWord);
+          int pilihan_buy;
+          for (;;) {
+            printf("ENTER COMMAND: ");
+            advWord();
+            pilihan_buy = wordToInt2(currentWord);
+            if ((pilihan_buy >= 0) && (pilihan_buy <= 4)) {
+              break;
+            } else {
+              printf("Input tidak valid.\n");
+            }
+          }
           if (pilihan_buy == 0) {
             printf("Anda memilih untuk kembali.\n");
           } else if (pilihan_buy == 1) {
@@ -405,9 +413,17 @@ int main() {
         }
       }
       printf("Gadget mana yang ingin digunakan? (ketik 0 jika ingin kembali)\n\n");
-      printf("ENTER COMMAND: ");
-      advWord();
-      int pilihan_inventory = wordToInt2(currentWord);
+      int pilihan_inventory;
+      for (;;) {
+        printf("ENTER COMMAND: ");
+        advWord();
+        pilihan_inventory = wordToInt2(currentWord);
+        if ((pilihan_inventory >= 0) && (pilihan_inventory <= LP_CAPACITY)) {
+          break;
+        } else {
+          printf("Input tidak valid.\n");
+        }
+      }
       if (pilihan_inventory == 0) {
         printf("Anda memilih untuk kembali.\n");
       } else {
