@@ -168,12 +168,19 @@ int main() {
       printf("Jumlah pesanan yang harus dikerjakan: %d\n", LL_length(toDoList));
     }
     printf("======================================================================\n");
-    printf("ENTER COMMAND: ");
-    if (firstCommand) {
-      startWord();
-      firstCommand = false;
-    } else {
-      advWord();
+    for (;;) {
+      printf("ENTER COMMAND: ");
+      if (firstCommand) {
+        startWord();
+        firstCommand = false;
+      } else {
+        advWord();
+      }
+      if ((isWordEqual(currentWord, "MOVE")) || (isWordEqual(currentWord, "PICK_UP")) || (isWordEqual(currentWord, "DROP_OFF")) || (isWordEqual(currentWord, "MAP")) || (isWordEqual(currentWord, "TO_DO")) || (isWordEqual(currentWord, "IN_PROGRESS")) || (isWordEqual(currentWord, "BUY")) || (isWordEqual(currentWord, "INVENTORY")) || (isWordEqual(currentWord, "HELP"))) {
+        break;
+      } else {
+        printf("Input tidak valid.\n");
+      }
     }
     // CEK COMMAND
     if (isWordEqual(currentWord, "MAP")) { // COMMAND MAP
