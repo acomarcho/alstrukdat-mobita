@@ -126,6 +126,7 @@ int main() {
   // ======================== INISIALISASI GAME ======================== //
   int time = 1;
   int money = 15000;
+  int bag_capacity = 3;
   POINT Headquarters = MakePOINT(hqX, hqY);
   POINT mobitaLoc = MakePOINT(hqX, hqY);
   Stack bag; ST_CreateStack(&bag);
@@ -244,7 +245,7 @@ int main() {
           printf("\n");
         } while (p != NULL);
       }
-    } else if (isWordEqual(currentWord, "MOVE")) {  // COMMAND MOVE
+    } else if (isWordEqual(currentWord, "MOVE")) { // COMMAND MOVE
       printf("Posisi yang dapat dicapai:\n");
       adjacentLocations lokasiTujuan = getAdjacentLocations(mobitaLoc, listBangunan, map);
       for (int j = 0; j < lokasiTujuan.length; j ++) {
@@ -269,7 +270,7 @@ int main() {
           time ++;
         }
       }
-    } else if (isWordEqual(currentWord, "PICK_UP")) { // COMMAND PICK_UP
+    } else if (isWordEqual(currentWord, "PICK_UP")) { // COMMAND PICK-UP
       // Cari item pada toDoList.
       boolean found = false;
       int idx = 0;
@@ -283,32 +284,36 @@ int main() {
         }
       }
       if (found) {
-        Item item = INFO(p);
-        switch(item.itemType) {
-          case 'N':
-            printf("Pesanan berupa Normal Item berhasil diambil!\n");
-            break;
-          case 'H':
-            printf("Pesanan berupa Heavy Item berhasil diambil!\n");
-            break;
-          case 'P':
-            printf("Pesanan berupa Perishable Item berhasil diambil!\n");
-            break;
-          case 'V':
-            printf("Pesanan berupa VIP Item berhasil diambil!\n");
-            break;
+        if (ST_IDX_TOP(bag) != bag_capacity-1) {
+          Item item = INFO(p);
+          switch(item.itemType) {
+            case 'N':
+              printf("Pesanan berupa Normal Item berhasil diambil!\n");
+              break;
+            case 'H':
+              printf("Pesanan berupa Heavy Item berhasil diambil!\n");
+              break;
+            case 'P':
+              printf("Pesanan berupa Perishable Item berhasil diambil!\n");
+              break;
+            case 'V':
+              printf("Pesanan berupa VIP Item berhasil diambil!\n");
+              break;
+          }
+          // Masukkan item ke inProgressList
+          LL_insertFirst(&inProgressList, item);
+          // Masukkan item ke tas.
+          ST_push(&bag, item);
+          // Hapus dari toDoList
+          Item tmp;
+          LL_deleteAt(&toDoList, idx, &tmp);
+        } else {
+          printf("Kapasitas tas penuh.\n");
         }
-        // Masukkan item ke inProgressList
-        LL_insertFirst(&inProgressList, item);
-        // Masukkan item ke tas.
-        ST_push(&bag, item);
-        // Hapus dari toDoList
-        Item tmp;
-        LL_deleteAt(&toDoList, idx, &tmp);
       } else {
         printf("Pesanan tidak ditemukan!\n");
       }
-    } else if (isWordEqual(currentWord, "DROP_OFF")) {
+    } else if (isWordEqual(currentWord, "DROP_OFF")) { // COMMAND DROP-OFF
       if (LL_isEmpty(inProgressList)) {
         printf("Tidak ada pesanan yang dapat diantarkan!\n");
       } else {
@@ -448,6 +453,11 @@ int main() {
               printf("Kain Pembungkus Waktu berhasil digunakan!\n");
             } else if (LP_ELMT(inventory, i-1) == 2) {
               LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
+              if (bag_capacity*2 > 100) {
+                bag_capacity = 100;
+              } else {
+                bag_capacity *= 2;
+              }
               printf("Senter Pembesar berhasil digunakan!\n");
             } else if (LP_ELMT(inventory, i-1) == 3) {
               LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
@@ -455,6 +465,11 @@ int main() {
               printf("Pintu Kemana Saja berhasil digunakan!\n");
             } else if (LP_ELMT(inventory, i-1) == 4) {
               LP_ELMT(inventory, i-1) = LP_VAL_UNDEF;
+              if (time < 50) {
+                time = 0;
+              } else {
+                time -= 50;
+              }
               printf("Mesin Waktu berhasil digunakan!\n");
             }
             break;
