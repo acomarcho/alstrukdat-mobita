@@ -5,12 +5,8 @@
 #include "Item/item.h"
 #include "move/bag.h"
 
-// Buat digabung sama fungsi main nanti (Sesuain variabel IN_PROGRESS, list bangunan, lokasi mobita, tas)
-int main(){
-    List inProgressList;
-    ListDin listBangunan;
-    POINT mobitaLoc;
-    BAG tas;
+// Buat digabung sama fungsi main nanti 
+void drop_off(List inProgressList, ListDin listBangunan, POINT mobitaLoc, BAG tas){
     int money;
 
     if(isEmptyLL(inProgressList)){
@@ -30,13 +26,13 @@ int main(){
             case 'H':
                 printf("Pesanan Heavy Item berhasil diantarkan.\n");
                 prize = 400;
-                // Ability Speed Boost aktif
+                // Ability Speed Boost aktif (belum direalisasi liat integrasinya gimana)
                 break;
             case 'P':
                 printf("Pesanan Perishable Item berhasil diantarkan.\n");
                 prize = 400;
-                // Ability Increase Capacity aktif
-                break;                                
+                IncreaseCapacity(&tas);
+                break;                         
             }
             money += prize;
             printf("Uang yang didapatkan: %d Yen\n", prize);
