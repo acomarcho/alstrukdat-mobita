@@ -41,7 +41,7 @@ void bacaFile()
 {
     char pattern[] = "of"; // string to search for
     int count = 0;
-    static const char filename[] = "testing.txt";
+    static const char filename[] = "testing.txt"; /* Nama FILE Bisa disesuaikan saja */
     FILE *file = fopen(filename, "r");
     if (file != NULL)
     {
