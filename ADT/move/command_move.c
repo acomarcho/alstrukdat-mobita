@@ -91,7 +91,11 @@ int main()
             printf("Mobita sekarang berada di titik ");
             bacaLine(pilih_pos);
             printf("!\n");
-            printf("Waktu: %d", time);
+            printf("Waktu: %d\n", time);
+        }
+        if (pilih_pos != 0 && Command != "RETURN")
+        {
+            scanf("ENTER COMMAND: %s", &Command);
         }
     }
     if (IsReturnToSender_Actived(Command) == true)
