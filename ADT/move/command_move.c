@@ -2,6 +2,8 @@
 #include "time.h"
 #include "ability.h"
 #include "move.h"
+#include "bacafile.h"
+
 int main()
 {
     TIME time;
@@ -55,9 +57,9 @@ int main()
         }
         if (is_command == true)
         {
-            printf("Posisi yang dapat dicapai: ");
-            /* Posisi yang dapat dicapai berasal dari file konfigurasi */
-            scanf("Posisi yang dipilih? (ketik 0 jika ingin kembali)");
+            printf("Posisi yang dapat dicapai: \n");
+            bacaFile();
+            scanf("Posisi yang dipilih? (ketik 0 jika ingin kembali)\n");
             scanf("ENTER COMMAND: %d", &pilih_pos);
             if (pilih_pos != 0)
             {
@@ -76,22 +78,26 @@ int main()
                     {
                         IncreaseCapacity(&B);
                     }
-                    if (IsReturnToSender_Actived(Command) == true)
-                    {
-                        /* Item tas kembali ke lokasi pick up */
-                        /* Nunggu yang buat pick up dulu */
-                    }
-                    if (count_actived == 10)
-                    { /* Kalo dia sudah pindah lebih dari 10 lokasi */
-                        count_actived = 0;
-                    }
-                    else
-                    { /* Kalo dia pindah lokasi kurang dari 10 kali */
-                        count_actived++;
-                    }
+                }
+                if (count_actived == 10)
+                { /* Kalo dia sudah pindah lebih dari 10 lokasi */
+                    count_actived = 0;
+                }
+                else
+                { /* Kalo dia pindah lokasi kurang dari 10 kali */
+                    count_actived++;
                 }
             }
+            printf("Mobita sekarang berada di titik ");
+            bacaLine(pilih_pos);
+            printf("!\n");
+            printf("Waktu: %d", time);
         }
+    }
+    if (IsReturnToSender_Actived(Command) == true)
+    {
+        /* Item tas kembali ke lokasi pick up */
+        /* Nunggu yang buat pick up dulu */
     }
     return 0;
 }
