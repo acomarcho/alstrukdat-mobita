@@ -76,10 +76,17 @@ void printLine(Line l) {
 int fWordToInt(fWord fw) {
   /*  Mengonversi fWord ke integer */
   int num = 0;
-  for (int i = 0; i < fw.length; i ++) {
-    num = num * 10 + fw.contents[i] - 48;
+  if (fw.contents[0] == '-') {
+    for (int i = 1; i < fw.length; i ++) {
+      num = num * 10 + fw.contents[i] - 48;
+    }
+    return -1 * num;
+  } else {
+    for (int i = 0; i < fw.length; i ++) {
+      num = num * 10 + fw.contents[i] - 48;
+    }
+    return num;
   }
-  return num;
 }
 
 boolean fExists(const char *fname) {

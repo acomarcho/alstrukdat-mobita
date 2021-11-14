@@ -27,6 +27,11 @@ void CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus)
 /* I.S. sembarang */
 /* F.S. terbentuk sebuah perishable item */
 
+void CreateItemFull(Item *i, int masuk, int nilai, int hangus, int sisa_waktu, char start, char dest, char jenis, boolean isKecil);
+/* Proses: Mendeklarasikan Item */
+/* I.S. sembarang */
+/* F.S. terbentuk sebuah item */
+
 
 /* ===== SELEKTOR ===== */
 #define MASUK(i) (i).masuk

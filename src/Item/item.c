@@ -6,6 +6,8 @@ void CreateItem(Item *i, int masuk, char start, char dest, char jenis){
     START(*i) = start;
     DESTINATION(*i) = dest;
     JENIS(*i) = jenis;
+    HANGUS(*i) = -999;
+    SISA_WAKTU(*i) = -999;
     (*i).isKecil = false;
     switch (jenis){
     case 'N':
@@ -33,11 +35,25 @@ void CreatePerishableItem(Item *i, int masuk, char start, char dest, int hangus)
     NILAI(*i) = 400;
     HANGUS(*i) = hangus;
     SISA_WAKTU(*i) = hangus;
+    (*i).isKecil = false;
 }
 /* Proses: Mendeklarasikan Perishable Item */
 /* I.S. sembarang */
 /* F.S. terbentuk sebuah perishable item */
 
+void CreateItemFull(Item *i, int masuk, int nilai, int hangus, int sisa_waktu, char start, char dest, char jenis, boolean isKecil) {
+    MASUK(*i) = masuk;
+    NILAI(*i) = nilai;
+    HANGUS(*i) = hangus;
+    SISA_WAKTU(*i) = sisa_waktu;
+    START(*i) = start;
+    DESTINATION(*i) = dest;
+    JENIS(*i) = jenis;
+    (*i).isKecil = isKecil;
+}
+/* Proses: Mendeklarasikan Item */
+/* I.S. sembarang */
+/* F.S. terbentuk sebuah item */
 
 void displayItem(Item i){
     printf("%d : %c -> %c ", MASUK(i), START(i), DESTINATION(i));

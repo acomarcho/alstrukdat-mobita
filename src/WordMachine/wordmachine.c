@@ -26,6 +26,7 @@ void copyWord() {
     i ++;
     adv();
   }
+  currentWord.contents[i] = '\0';
   currentWord.length = i;
 }
 

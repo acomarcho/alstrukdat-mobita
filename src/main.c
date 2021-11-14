@@ -80,6 +80,32 @@ void cetakBag(Stack bag) {
   }
 }
 
+void printListBangunan(ListDin l) {
+  /* For debugging purposes only */
+  printf("=== LIST BANGUNAN ===\n");
+  for (int i = 0; LD_isIdxEff(l, i); i ++) {
+    Bangunan b = LD_ELMT(l, i);
+    printf("%c: (%d, %d)\n", b.locName, Absis(b.locCoords), Ordinat(b.locCoords));
+  }
+}
+
+void printLogo() {
+  printf("  __  __       _     _ _        \n");
+  printf(" |  \\/  |     | |   (_) |       \n");
+  printf(" | \\  / | ___ | |__  _| |_ __   \n");
+  printf(" | |\\/| |/ _ \\| '_ \\| | __/ _` |\n");
+  printf(" | |  | | (_) | |_) | | || (_| |\n");
+  printf(" |_|  |_|\\___/|_.__/|_|\\__\\__,_|\n");
+  printf(" \\ \\ / / __|                    \n");
+  printf("  \\ V /\\__ \\_                   \n");
+  printf("  _\\_/_|___(_)  _  ____  __     \n");
+  printf(" |  __ \\|  __ \\| |/ /  \\/  |    \n");
+  printf(" | |__) | |__) | ' /| \\  / |    \n");
+  printf(" |  ___/|  ___/|  < | |\\/| |    \n");
+  printf(" | |    | |    | . \\| |  | |    \n");
+  printf(" |_|    |_|    |_|\\_\\_|  |_|    \n");                                 
+}
+
 int main() {
   /* ===================== */
   /* STATE GAME            */
@@ -107,14 +133,31 @@ int main() {
   boolean returnToSender;       // ability return to sender
   int kecilCount;               // jumlah heavy item yang dikecilkan
   int deliveredCount;           // banyak item yang berhasil diantar
+  /* Bagian inisialisasi game */
+  LD_CreateListDin(&listBangunan, 30);
+  CreateTime(&gameTime);
+  money = 15000;
+  bag_capacity = 3;
+  LL_CreateList(&toDoList);
+  LL_CreateList(&inProgressList);
+  ST_CreateStack(&bag);
+  CreateListPos(&inventory);
+  hvyItems = 0;
+  speedboostCount = 0;
+  VIPItemCount = 0;
+  returnToSender = false;
+  kecilCount = 0;
+  deliveredCount = 0;
   /* ===================== */
   /* MAIN MENU             */
   /* ===================== */
+  printLogo();
   printf("===== MAIN MENU =====\n");
   printf("Command yang diterima:\n");
-  printf("[NEW GAME] [EXIT] [LOAD GAME]\n");
+  printf(">> NEW GAME\n>> EXIT\n>> LOAD GAME\n");
   /* Mulai baca word */
   boolean isInMainMenu = true;
+  boolean end = false;
   printf("ENTER COMMAND: ");
   startWord();
   while (isInMainMenu) {
@@ -131,7 +174,6 @@ int main() {
       // File sudah ditemukan.
       printf("File konfigurasi ditemukan!\n");
       printf("Loading konfigurasi...\n");
-      LD_CreateListDin(&listBangunan, 30);
       // Load besar map.
       mapX = fWordToInt(currentLine.contents[0]);
       mapY = fWordToInt(currentLine.contents[1]);
@@ -139,9 +181,10 @@ int main() {
       advLine();
       hqX = fWordToInt(currentLine.contents[0]);
       hqY = fWordToInt(currentLine.contents[1]);
-      HQ = MakePOINT(hqX, hqY);
       Bangunan hq = LD_CreateBangunan('8', hqX, hqY);
       LD_insertLast(&listBangunan, hq);
+      HQ = MakePOINT(hqX, hqY);
+      mobitaLoc = MakePOINT(hqX, hqY);
       // Load jumlah lokasi.
       advLine();
       banyakLokasi = fWordToInt(currentLine.contents[0]);
@@ -187,9 +230,151 @@ int main() {
       isInMainMenu = false;
     } else if (isWordEqual(currentWord, "EXIT")) {
       printf("Anda memilih untuk keluar dari game.\n");
+      end = true;
       isInMainMenu = false;
     } else if (isWordEqual(currentWord, "LOAD GAME")) {
-      // Belum diimplementasikan.
+      printf("Masukkan nama file save: ");
+      advWord();
+      startLine(currentWord.contents);
+      while (endLine) {
+        printf("[!] File save tidak ditemukan!\n");
+        printf("Masukkan nama file save: ");
+        advWord();
+        startLine(currentWord.contents);
+      }
+      printf("File save ditemukan!\n");
+      printf("Loading save...\n");
+      /* BACA BANGUNAN */
+      banyakLokasi = fWordToInt(currentLine.contents[0]);
+      for (int i = 0; i < banyakLokasi; i ++) {
+        advLine();
+        Bangunan b = LD_CreateBangunan(currentLine.contents[0].contents[0], fWordToInt(currentLine.contents[1]), fWordToInt(currentLine.contents[2]));
+        LD_insertLast(&listBangunan, b);
+      }
+      /* BACA UKURAN MAP */
+      advLine();
+      mapX = fWordToInt(currentLine.contents[0]);
+      mapY = fWordToInt(currentLine.contents[1]);
+      /* BACA LOKASI HEADQUARTERS */
+      advLine();
+      hqX = fWordToInt(currentLine.contents[0]);
+      hqY = fWordToInt(currentLine.contents[1]);
+      HQ = MakePOINT(hqX, hqY);
+      /* BACA ADJACENCY MATRIX */
+      CreateMatrix(banyakLokasi, banyakLokasi, &adjMatrix);
+      for (int i = 0; i < banyakLokasi; i ++) {
+        advLine();
+        for (int j = 0; j < currentLine.length; j ++) {
+          ELMT(adjMatrix, i, j) = fWordToInt(currentLine.contents[j]);
+        }
+      }
+      CreateMap(mapX, mapY, listBangunan, adjMatrix, &map);
+      /* BACA QUEUE PESANAN */
+      Q_CreateQueue(&quePesanan);
+      advLine();
+      banyakPesanan = fWordToInt(currentLine.contents[0]);
+      for (int i = 0; i < banyakPesanan; i ++) {
+        advLine();
+        /* Parse item */
+        int masuk = fWordToInt(currentLine.contents[0]);
+        int nilai = fWordToInt(currentLine.contents[1]);
+        int hangus = fWordToInt(currentLine.contents[2]);
+        int sisa_waktu = fWordToInt(currentLine.contents[3]);
+        char start = currentLine.contents[4].contents[0];
+        char dest = currentLine.contents[5].contents[0];
+        char jenis = currentLine.contents[6].contents[0];
+        boolean isKecil = fWordToInt(currentLine.contents[7]);
+        Item it; CreateItemFull(&it, masuk, nilai, hangus, sisa_waktu, start, dest, jenis, isKecil);
+        Q_enqueue(&quePesanan, it);
+      }
+      /* BACA TIME */
+      advLine();
+      Time(gameTime) = fWordToInt(currentLine.contents[0]);
+      /* BACA MONEY */
+      advLine();
+      money = fWordToInt(currentLine.contents[0]);
+      /* BACA LOKASI MOBITA */
+      advLine();
+      mobitaLoc = MakePOINT(fWordToInt(currentLine.contents[0]), fWordToInt(currentLine.contents[1]));
+      /* BACA TO DO LIST */
+      advLine();
+      int toDoCount = fWordToInt(currentLine.contents[0]);
+      for (int i = 0; i < toDoCount; i ++) {
+        advLine();
+        /* Parse item */
+        int masuk = fWordToInt(currentLine.contents[0]);
+        int nilai = fWordToInt(currentLine.contents[1]);
+        int hangus = fWordToInt(currentLine.contents[2]);
+        int sisa_waktu = fWordToInt(currentLine.contents[3]);
+        char start = currentLine.contents[4].contents[0];
+        char dest = currentLine.contents[5].contents[0];
+        char jenis = currentLine.contents[6].contents[0];
+        boolean isKecil = fWordToInt(currentLine.contents[7]);
+        Item it; CreateItemFull(&it, masuk, nilai, hangus, sisa_waktu, start, dest, jenis, isKecil);
+        LL_insertLast(&toDoList, it);
+      }
+      /* BACA IN PROGRESS LIST */
+      advLine();
+      int inProgressCount = fWordToInt(currentLine.contents[0]);
+      for (int i = 0; i < inProgressCount; i ++) {
+        advLine();
+        /* Parse item */
+        int masuk = fWordToInt(currentLine.contents[0]);
+        int nilai = fWordToInt(currentLine.contents[1]);
+        int hangus = fWordToInt(currentLine.contents[2]);
+        int sisa_waktu = fWordToInt(currentLine.contents[3]);
+        char start = currentLine.contents[4].contents[0];
+        char dest = currentLine.contents[5].contents[0];
+        char jenis = currentLine.contents[6].contents[0];
+        boolean isKecil = fWordToInt(currentLine.contents[7]);
+        Item it; CreateItemFull(&it, masuk, nilai, hangus, sisa_waktu, start, dest, jenis, isKecil);
+        LL_insertLast(&inProgressList, it);
+      }
+      /* BACA BAG CAPACITY */
+      advLine();
+      bag_capacity = fWordToInt(currentLine.contents[0]);
+      /* BACA BAG */
+      advLine();
+      int banyakBag = fWordToInt(currentLine.contents[0]);
+      for (int i = 0; i < banyakBag; i ++) {
+        advLine();
+        /* Parse item */
+        int masuk = fWordToInt(currentLine.contents[0]);
+        int nilai = fWordToInt(currentLine.contents[1]);
+        int hangus = fWordToInt(currentLine.contents[2]);
+        int sisa_waktu = fWordToInt(currentLine.contents[3]);
+        char start = currentLine.contents[4].contents[0];
+        char dest = currentLine.contents[5].contents[0];
+        char jenis = currentLine.contents[6].contents[0];
+        boolean isKecil = fWordToInt(currentLine.contents[7]);
+        Item it; CreateItemFull(&it, masuk, nilai, hangus, sisa_waktu, start, dest, jenis, isKecil);
+        ST_push(&bag, it);
+      }
+      /* BACA INVENTORY */
+      advLine();
+      LP_ELMT(inventory, 0) = fWordToInt(currentLine.contents[0]);
+      LP_ELMT(inventory, 1) = fWordToInt(currentLine.contents[1]);
+      LP_ELMT(inventory, 2) = fWordToInt(currentLine.contents[2]);
+      LP_ELMT(inventory, 3) = fWordToInt(currentLine.contents[3]);
+      LP_ELMT(inventory, 4) = fWordToInt(currentLine.contents[4]);
+      /* BACA hvyItems */
+      advLine();
+      hvyItems = fWordToInt(currentLine.contents[0]);
+      /* BACA speedboostCount */
+      advLine();
+      speedboostCount = fWordToInt(currentLine.contents[0]);
+      /* BACA VIPItemCount */
+      advLine();
+      VIPItemCount = fWordToInt(currentLine.contents[0]);
+      /* BACA returnToSender */
+      advLine();
+      returnToSender = fWordToInt(currentLine.contents[0]);
+      /* BACA kecilCount */
+      advLine();
+      kecilCount = fWordToInt(currentLine.contents[0]);
+      /* BACA deliveredCount */
+      advLine();
+      deliveredCount = fWordToInt(currentLine.contents[0]);
       isInMainMenu = false;
     } else {
       printf("[!] Command Anda tidak dikenali. Silakan ulangi.\n");
@@ -197,23 +382,7 @@ int main() {
       advWord();
     }
   }
-  /* Bagian inisialisasi game */
-  CreateTime(&gameTime);
-  money = 15000;
-  bag_capacity = 3;
-  mobitaLoc = MakePOINT(hqX, hqY);
-  LL_CreateList(&toDoList);
-  LL_CreateList(&inProgressList);
-  ST_CreateStack(&bag);
-  CreateListPos(&inventory);
-  hvyItems = 0;
-  speedboostCount = 0;
-  VIPItemCount = 0;
-  returnToSender = false;
-  kecilCount = 0;
-  deliveredCount = 0;
   /* Game! */
-  boolean end = false;
   while (!end) {
     if (Q_isEmpty(quePesanan) && LL_isEmpty(toDoList) && LL_isEmpty(inProgressList)) {
       if (NEQ(mobitaLoc, HQ)) {
@@ -243,7 +412,7 @@ int main() {
     for (;;) {
       printf("ENTER COMMAND: ");
       advWord();
-      if ((isWordEqual(currentWord, "MOVE")) || (isWordEqual(currentWord, "PICK_UP")) || (isWordEqual(currentWord, "DROP_OFF")) || (isWordEqual(currentWord, "MAP")) || (isWordEqual(currentWord, "TO_DO")) || (isWordEqual(currentWord, "IN_PROGRESS")) || (isWordEqual(currentWord, "BUY")) || (isWordEqual(currentWord, "INVENTORY")) || (isWordEqual(currentWord, "HELP")) || (isWordEqual(currentWord, "RETURN"))) {
+      if ((isWordEqual(currentWord, "MOVE")) || (isWordEqual(currentWord, "PICK_UP")) || (isWordEqual(currentWord, "DROP_OFF")) || (isWordEqual(currentWord, "MAP")) || (isWordEqual(currentWord, "TO_DO")) || (isWordEqual(currentWord, "IN_PROGRESS")) || (isWordEqual(currentWord, "BUY")) || (isWordEqual(currentWord, "INVENTORY")) || (isWordEqual(currentWord, "HELP")) || (isWordEqual(currentWord, "RETURN")) || (isWordEqual(currentWord, "SAVE_GAME"))) {
         break;
       } else {
         printf("[!] Command tidak valid. Ketik HELP untuk melihat command valid.\n");
@@ -268,6 +437,8 @@ int main() {
       int pilihan = wordToInt(currentWord);
       if (pilihan == 0) {
         printf("Anda memilih untuk kembali.\n");
+      } else if (pilihan < 0 || pilihan > lokasiTujuan.length) {
+        printf("[!] Input Anda tidak sesuai.\n");
       } else {
         int idxBangunan = lokasiTujuan.buffer[pilihan - 1];
         Bangunan bangunan = LD_ELMT(listBangunan, idxBangunan);
@@ -415,6 +586,7 @@ int main() {
       printf("8. INVENTORY -> Untuk melihat gadget yang dimiliki dan menggunakannya\n");
       printf("9. HELP -> Untuk mengeluarkan list command dan kegunaannya\n");
       printf("10. RETURN -> Mengembalikan barang teratas di tas apabila memiliki ability return to sender.\n");
+      printf("11. SAVE_GAME -> Menyimpan state game sekarang agar nanti bisa di load.\n");
     } else if (isWordEqual(currentWord, "INVENTORY")) {
       showInventory(inventory);
       printf("Gadget mana yang ingin digunakan? (Ketik 0 jika ingin kembali)\n\n");
@@ -599,7 +771,87 @@ int main() {
             printf("[!] Item jenis %c (%c -> %c) berhasil dikembalikan.\n", tmp.jenis, tmp.start, tmp.dest);
           }
         }
+      } 
+    } else if (isWordEqual(currentWord, "SAVE_GAME")) {
+      // Simpan pada file.
+      printf("Masukkan nama file penyimpanan (contoh: save.txt): ");
+      advWord();
+      FILE* fpointer = fopen(currentWord.contents, "w");
+      // Banyak bangunan
+      fprintf(fpointer, "%d\n", listBangunan.nEff);
+      // Bangunannya
+      for (int i = 0; i < listBangunan.nEff; i ++) {
+        Bangunan b = listBangunan.buffer[i];
+        fprintf(fpointer, "%c %d %d\n", b.locName, Absis(b.locCoords), Ordinat(b.locCoords));
       }
+      // Ukuran map
+      fprintf(fpointer, "%d %d\n", mapX, mapY);
+      // Lokasi HQ
+      fprintf(fpointer, "%d %d\n", Absis(HQ), Ordinat(HQ));
+      // Adjacency matrix
+      for (int i = 0; i <= getLastIdxRow(adjMatrix); i ++) {
+        for (int j = 0; j <= getLastIdxCol(adjMatrix); j ++) {
+          if (j != getLastIdxCol(adjMatrix)) {
+            fprintf(fpointer, "%d ", adjMatrix.contents[i][j]);
+          } else {
+            fprintf(fpointer, "%d\n", adjMatrix.contents[i][j]);
+          }
+        }
+      }
+      // Queue Pesanan
+      fprintf(fpointer, "%d\n", Q_length(quePesanan));
+      if (!Q_isEmpty(quePesanan)) {
+        for (int i = Q_IDX_HEAD(quePesanan); i <= Q_IDX_TAIL(quePesanan); i ++) {
+          Item it = quePesanan.buffer[i];
+          fprintf(fpointer, "%d %d %d %d %c %c %c %d\n", it.masuk, it.nilai, it.hangus, it.sisa_waktu, it.start, it.dest, it.jenis, it.isKecil);
+        }
+      }
+      // Time
+      fprintf(fpointer, "%d\n", Time(gameTime));
+      // Money
+      fprintf(fpointer, "%d\n", money);
+      // Lokasi Mobita
+      fprintf(fpointer, "%d %d\n", Absis(mobitaLoc), Ordinat(mobitaLoc));
+      // To-do List
+      fprintf(fpointer, "%d\n", LL_length(toDoList));
+      Address p = LL_FIRST(toDoList);
+      while (p != NULL) {
+        Item it = NODE_INFO(p);
+        fprintf(fpointer, "%d %d %d %d %c %c %c %d\n", it.masuk, it.nilai, it.hangus, it.sisa_waktu, it.start, it.dest, it.jenis, it.isKecil);
+        p = NODE_NEXT(p);
+      }
+      // In-progress List
+      fprintf(fpointer, "%d\n", LL_length(inProgressList));
+      p = LL_FIRST(inProgressList);
+      while (p != NULL) {
+        Item it = NODE_INFO(p);
+        fprintf(fpointer, "%d %d %d %d %c %c %c %d\n", it.masuk, it.nilai, it.hangus, it.sisa_waktu, it.start, it.dest, it.jenis, it.isKecil);
+        p = NODE_NEXT(p);
+      }
+      // Bag capacity
+      fprintf(fpointer, "%d\n", bag_capacity);
+      // Bag
+      fprintf(fpointer, "%d\n", ST_IDX_TOP(bag) + 1);
+      for (int i = 0; i <= ST_IDX_TOP(bag); i ++) {
+        Item it = bag.buffer[i];
+        fprintf(fpointer, "%d %d %d %d %c %c %c %d\n", it.masuk, it.nilai, it.hangus, it.sisa_waktu, it.start, it.dest, it.jenis, it.isKecil);
+      }
+      // List inventory
+      fprintf(fpointer, "%d %d %d %d %d\n", LP_ELMT(inventory, 0), LP_ELMT(inventory, 1), LP_ELMT(inventory, 2), LP_ELMT(inventory, 3), LP_ELMT(inventory, 4));
+      // hvyItems
+      fprintf(fpointer, "%d\n", hvyItems);
+      // speedboostCount
+      fprintf(fpointer, "%d\n", speedboostCount);
+      // VIPItemCount
+      fprintf(fpointer, "%d\n", VIPItemCount);
+      // returnToSender
+      fprintf(fpointer, "%d\n", returnToSender); // 1 = true; 0 = false
+      // kecilCount
+      fprintf(fpointer, "%d\n", kecilCount);
+      // deliveredCount
+      fprintf(fpointer, "%d\n", deliveredCount);
+
+      fclose(fpointer);
     }
   }
   return 0;
