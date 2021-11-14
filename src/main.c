@@ -23,7 +23,7 @@ void showState(POINT mobitaLoc, ListDin listBangunan, TIME gameTime, int money, 
   printf("Waktu: %d\n", Time(gameTime));
   printf("Uang yang dimiliki: %d Yen\n", money);
   if (LL_length(toDoList) > 0) {
-    printf("Jumlah pesanan yang harus dikerjakan: %d\n", LL_length(toDoList));
+    printf("Jumlah pesanan yang harus dikerjakan: %d\n", LL_length(toDoList) + LL_length(inProgressList));
   }
   printf("======================================================================\n");
 }
@@ -106,6 +106,7 @@ int main() {
   int VIPItemCount;             // banyak VIP item
   boolean returnToSender;       // ability return to sender
   int kecilCount;               // jumlah heavy item yang dikecilkan
+  int deliveredCount;           // banyak item yang berhasil diantar
   /* ===================== */
   /* MAIN MENU             */
   /* ===================== */
@@ -210,9 +211,21 @@ int main() {
   VIPItemCount = 0;
   returnToSender = false;
   kecilCount = 0;
+  deliveredCount = 0;
   /* Game! */
   boolean end = false;
   while (!end) {
+    if (Q_isEmpty(quePesanan) && LL_isEmpty(toDoList) && LL_isEmpty(inProgressList)) {
+      if (NEQ(mobitaLoc, HQ)) {
+        printf("[!] Tidak ada pesanan lagi yang bisa diantarkan. Kembali ke headquarters!\n");
+      } else {
+        printf("======================================================================\n");
+        printf("Permainan selesai!\n");
+        printf("Mobita berhasil mengantarkan %d pesanan dengan penunjuk in-game time akhir %d.\n", deliveredCount, Time(gameTime));
+        end = true;
+        break;
+      }
+    }
     /* Memasukkan pesanan yang sudah waktunya masuk ke to-do list. */
     while (!Q_isEmpty(quePesanan) && Q_HEAD(quePesanan).masuk <= Time(gameTime)) {
       Item poppedItem;
@@ -381,6 +394,7 @@ int main() {
               break;
           }
           money += prize;
+          deliveredCount ++;
           printf("Uang yang didapatkan: %d Yen\n", prize);
           // Hapus dari inProgressList dan bag.
           Item tmp;
@@ -400,6 +414,7 @@ int main() {
       printf("7. BUY -> Untuk menampilkan gadget yang dapat dibeli dan membelinya\n");
       printf("8. INVENTORY -> Untuk melihat gadget yang dimiliki dan menggunakannya\n");
       printf("9. HELP -> Untuk mengeluarkan list command dan kegunaannya\n");
+      printf("10. RETURN -> Mengembalikan barang teratas di tas apabila memiliki ability return to sender.\n");
     } else if (isWordEqual(currentWord, "INVENTORY")) {
       showInventory(inventory);
       printf("Gadget mana yang ingin digunakan? (Ketik 0 jika ingin kembali)\n\n");
