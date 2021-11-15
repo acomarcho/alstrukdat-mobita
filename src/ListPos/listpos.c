@@ -307,7 +307,7 @@ void useFromInventory(ListPos *l, int idx) {
   } else if (LP_ELMT(*l, idx) == 3) {
     printf("Pintu Kemana Saja berhasil digunakan!\n");
   } else if (LP_ELMT(*l, idx) == 4) {
-    printf("Meisn Waktu berhasil digunakan!\n");
+    printf("Mesin Waktu berhasil digunakan!\n");
   } else if (LP_ELMT(*l, idx) == 5) {
     printf("Senter Pengecil berhasil digunakan!\n");
   }
