@@ -1,0 +1,28 @@
+1 I/O File, I/O Command: bisa baca konfig file, bisa baca command sesuai yg ada di .pdf
+2 Fungsionalitas Map: Atleast bisa print sama nampilin lokasi apa aja yang bisa didapat dari lokasi (x,y) -> fungsionalitasnya dipake sm yg lain
+3 Fungsionalitas Move: Keep track waktu sesuai ability yang ada, ngurangin perishable item
+4 Pick Up: Bikin fungsionalitas ngecek apakah ada pesanan (berarti linked list to-do, apakah lokasi sesuai...). Ngurus in-progress juga.
+5 Drop Off: Bikin fungsionalitas ngecek apakah yg ada di paling atas stack lokasinya sesuai atau ngga. Ngurus in-progress juga.
+6 To-Do: Loop tiap waktu naik; pindahin dari queue yang waktunya sesuai ke dalem linked-list
+Pergadgetan: Ngurus buy/pemakaian/inventory gadget
+7 Ability: harusnya bareng sama yang buat move soalnya nyambung(?)
+8 Help: tinggal ngeprint gaming
+
+1 I/O File, I/O Command: bisa baca konfig file, bisa baca command sesuai yg ada di .pdf
+2 Fungsionalitas Map: Atleast bisa print sama nampilin lokasi apa aja yang bisa didapat dari lokasi (x,y) -> fungsionalitasnya dipake sm yg lain
+3 Fungsionalitas Move: Keep track waktu sesuai ability yang ada, ngurangin perishable item
+4 Pick Up: Bikin fungsionalitas ngecek apakah ada pesanan (berarti linked list to-do, apakah lokasi sesuai...). Ngurus in-progress juga.
+5 Drop Off: Bikin fungsionalitas ngecek apakah yg ada di paling atas stack lokasinya sesuai atau ngga. Ngurus in-progress juga.
+6 To-Do: Loop tiap waktu naik; pindahin dari queue yang waktunya sesuai ke dalem linked-list
+7. Pergadgetan: Ngurus buy/pemakaian/inventory gadget
+8. Ability: harusnya bareng sama yang buat move soalnya nyambung(?)
+9. Help: tinggal ngeprint gaming
+
+1. Marcho
+2. Marcho
+3. Gilang
+4. Tepen
+5. Hilmi
+6. Hafidz
+7. Jojo
+8. Gilang
