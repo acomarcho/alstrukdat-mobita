@@ -13,4 +13,4 @@ int main()
     printf("%d", t);
     return 0;
 }
-// gcc -o driver_time driver_time.c time
+// gcc -o driver_time driver_time.c time.c
