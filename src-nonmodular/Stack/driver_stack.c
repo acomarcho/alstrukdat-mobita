@@ -28,4 +28,5 @@ int main()
         printf("Stack penuh\n");
     }
     return 0;
+    // gcc -o driver_stack driver_stack.c stack
 }
