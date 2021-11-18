@@ -17,6 +17,7 @@ Program ini berhasil kami selesaikan dengan beberapa fitur, yaitu:
 11. SAVE_GAME untuk menyimpan state game sekarang untuk dilanjutkan di lain waktu
 12. EXIT untuk keluar dari permainan
 
+Kami juga mengimplentasikan bonus VIP Item, ability return to sender, gadget senter pengecil, dan juga fitur save/load game.
 
 ## Cara Kompilasi Program
 1. Masuk ke dalam folder src
