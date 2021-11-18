@@ -1,5 +1,5 @@
-#ifndef DROPOFF_H
-#define DROPOFF_H
+#ifndef UPDATESENTERPENGECIL_H
+#define UPDATESENTERPENGECIL_H
 
 #include "../FileMachine/filemachine.h"
 #include "../WordMachine/wordmachine.h"
@@ -14,10 +14,9 @@
 #include "../Time/time.h"
 #include "../Stack/stack.h"
 #include "../ListPos/listpos.h"
-#include "updateSenterPengecil.h"
 #include <stdio.h>
 
-void dropoff(List* inProgressList, Stack* bag, POINT mobitaLoc, ListDin listBangunan, int* hvyItems, int* kecilCount, int* speedboostCount, int* bag_capacity, int* VIPItemCount, boolean* returnToSender, int* money, int* deliveredCount);
-/* Implementasi command DROP_OFF */
+void updateSenterPengecil(List *inProgressList, Stack *bag, int *kecilCount);
+/* Mengembalikan item yang memiliki efek senter pengecil menjadi tidak kecil lagi. */
 
 #endif

@@ -14,6 +14,7 @@
 #include "../Time/time.h"
 #include "../Stack/stack.h"
 #include "../ListPos/listpos.h"
+#include "updateSenterPengecil.h"
 #include <stdio.h>
 
 void handleReturn(boolean returnToSender, List* inProgressList, Stack* bag, List* toDoList, int* hvyItems, int* kecilCount);

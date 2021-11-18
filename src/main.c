@@ -30,8 +30,9 @@
 #include "Utils/returnToSender.h"
 #include "Utils/saveGame.h"
 #include "Utils/other.h"
+#include "Utils/updateSenterPengecil.h"
 
-// gcc -o main main.c FileMachine/filemachine.c WordMachine/wordmachine.c WordMachine/charmachine.c Item/item.c LinkedList/list_linked.c LinkedList/node.c Listdin/listdin.c Map/map.c Matrix/matrix.c PColor/pcolor.c Point/point.c Queue/queue.c Time/time.c Stack/stack.c ListPos/listpos.c Utils/showState.c Utils/updatePerishables.c Utils/initializeGame.c Utils/newGame.c Utils/loadGame.c Utils/move.c Utils/handleToDo.c Utils/showHelp.c Utils/pickup.c Utils/dropoff.c Utils/inventory.c Utils/buy.c Utils/returnToSender.c Utils/saveGame.c Utils/other.c
+// gcc -o main main.c FileMachine/filemachine.c WordMachine/wordmachine.c WordMachine/charmachine.c Item/item.c LinkedList/list_linked.c LinkedList/node.c Listdin/listdin.c Map/map.c Matrix/matrix.c PColor/pcolor.c Point/point.c Queue/queue.c Time/time.c Stack/stack.c ListPos/listpos.c Utils/showState.c Utils/updatePerishables.c Utils/initializeGame.c Utils/newGame.c Utils/loadGame.c Utils/move.c Utils/handleToDo.c Utils/showHelp.c Utils/pickup.c Utils/dropoff.c Utils/inventory.c Utils/buy.c Utils/returnToSender.c Utils/saveGame.c Utils/other.c Utils/updateSenterPengecil.c
 
 int main()
 {

@@ -21,6 +21,8 @@ void handleReturn(boolean returnToSender, List* inProgressList, Stack* bag, List
       }
       else
       {
+        // Update efek senter pengecil.
+        updateSenterPengecil(inProgressList, bag, kecilCount);
         // Jika perishable, reset waktunya.
         if (tmp.jenis == 'P')
         {

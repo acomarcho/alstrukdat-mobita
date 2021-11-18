@@ -11,6 +11,8 @@ void dropoff(List* inProgressList, Stack* bag, POINT mobitaLoc, ListDin listBang
     Item item = ST_TOP(*bag);
     if (item.dest == getLocationName(mobitaLoc, listBangunan))
     { // Lokasi benar!
+      // Update efek senter pengecil.
+      updateSenterPengecil(inProgressList, bag, kecilCount);
       int prize;
       switch (item.jenis)
       {
