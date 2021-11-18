@@ -15,6 +15,7 @@ Program ini berhasil kami selesaikan dengan beberapa fitur, yaitu:
 9. HELP untuk menampilkan command yang valid dan kegunaannya.
 10. RETURN untuk mengembalikan barang teratas di tas apabila memiliki ability Return to Sender
 11. SAVE_GAME untuk menyimpan state game sekarang untuk dilanjutkan di lain waktu
+12. EXIT untuk keluar dari permainan
 
 
 ## Cara Kompilasi Program
@@ -24,15 +25,20 @@ cd src
 ```
 2. Kompilasi program dengan perintah gcc
 ```bash
-gcc -o main main.c FileMachine/filemachine.c WordMachine/wordmachine.c WordMachine/charmachine.c Item/item.c LinkedList/list_linked.c LinkedList/node.c Listdin/listdin.c Map/map.c Matrix/matrix.c PColor/pcolor.c Point/point.c Queue/queue.c Time/time.c Stack/stack.c ListPos/listpos.c Utils/showState.c Utils/updatePerishables.c Utils/initializeGame.c Utils/newGame.c Utils/loadGame.c Utils/move.c Utils/handleToDo.c Utils/showHelp.c Utils/pickup.c Utils/dropoff.c Utils/inventory.c Utils/buy.c Utils/returnToSender.c Utils/saveGame.c Utils/other.c
+gcc -o main main.c FileMachine/filemachine.c WordMachine/wordmachine.c WordMachine/charmachine.c Item/item.c LinkedList/list_linked.c LinkedList/node.c Listdin/listdin.c Map/map.c Matrix/matrix.c PColor/pcolor.c Point/point.c Queue/queue.c Time/time.c Stack/stack.c ListPos/listpos.c Utils/showState.c Utils/updatePerishables.c Utils/initializeGame.c Utils/newGame.c Utils/loadGame.c Utils/move.c Utils/handleToDo.c Utils/showHelp.c Utils/pickup.c Utils/dropoff.c Utils/inventory.c Utils/buy.c Utils/returnToSender.c Utils/saveGame.c Utils/other.c Utils/updateSenterPengecil.c Utils/exit_game.c
 ```
 
 ## Cara Menjalankan Program
 1. Pastikan sudah berada di dalam folder `src/`
-2. Pastikan sudah melakukan kompilasi program
+2. Pastikan sudah melakukan kompilasi program seperti instruksi di atas
 3. Jalankan Executable file
+Untuk Operating System Windows
 ```bash
 main
+```
+Untuk Operating System Linux
+```bash
+./main
 ```
 
 ## Struktur Direktori Program
