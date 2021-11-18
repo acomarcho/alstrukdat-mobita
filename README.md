@@ -43,7 +43,7 @@ Untuk Operating System Linux
 
 ## Struktur Direktori Program
 Program ini memiliki 2 Direktori:
-1. `Docs` yang berisi file laporan Tugas Besar
+1. `docs` yang berisi file laporan Tugas Besar
 2. `src` yang berisi source code program
 
 ## Anggota Kelompok dan Pembagian Tugas
