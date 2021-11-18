@@ -24,7 +24,7 @@ void BacaPOINT (POINT * P) {
   /* F.S. P terdefinisi */
   // KAMUS LOKAL
   int x, y;
-  scanf(" %f %f", &x, &y);
+  scanf(" %d %d", &x, &y);
   Absis(*P) = x;
   Ordinat(*P) = y;
 }
@@ -38,7 +38,7 @@ void TulisPOINT (POINT P) {
   /* I.S. P terdefinisi */
   /* F.S. P tertulis di layar dengan format "(X,Y)" */  
   // ALGORITMA
-  printf("(%.2f,%.2f)", Absis(P), Ordinat(P));
+  printf("(%d,%d)", Absis(P), Ordinat(P));
 }
               
 /* *** Kelompok operasi relasional terhadap POINT *** */
@@ -120,18 +120,6 @@ POINT MirrorOf (POINT P, boolean SbX) {
   }
 }
 
-int Jarak0 (POINT P) {
-  /* Menghitung jarak P ke (0,0) */
-  // ALGORITMA
-  return (sqrt(pow(Absis(P), 2) + pow(Ordinat(P), 2)));
-}
-
-int Panjang (POINT P1, POINT P2) {
-  /* Menghitung jarak terdekat dari P1 ke P2 */
-  // ALGORITMA
-  return (sqrt(pow(Absis(P1) - Absis(P2), 2) + pow(Ordinat(P1) - Ordinat(P2), 2)));
-}
-
 void Geser (POINT *P, int deltaX, int deltaY) {
   /* I.S. P terdefinisi */
   /* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
@@ -169,17 +157,4 @@ void Mirror (POINT *P, boolean SbX) {
   } else {
     Absis(*P) *= -1;
   }
-}
-
-void Putar (POINT *P, int Sudut) {
-  /* I.S. P terdefinisi */
-  /* F.S. P digeser sebesar Sudut derajat dengan sumbu titik (0,0) */
-  // KAMUS LOKAL
-  double PI = 3.1415926535;
-  int DerajatSudut = -1 * (Sudut * PI/180);
-  int AbsisBaru = Absis(*P) * cos(DerajatSudut) - Ordinat(*P) * sin(DerajatSudut);
-  int OrdinatBaru = Ordinat(*P) * cos(DerajatSudut) + Absis(*P) * sin(-1 * (Sudut * PI/180));
-  // ALGORITMA
-  Absis(*P) = AbsisBaru;
-  Ordinat(*P) = OrdinatBaru;
 }

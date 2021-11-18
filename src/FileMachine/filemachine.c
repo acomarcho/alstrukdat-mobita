@@ -36,10 +36,10 @@ void copyLine() {
   fWord readWord;
   readWord.length = 0;
   fscanf(in_file, "%c", &readChar);
-  while(readChar == ' ' || readChar == '\n') {
+  while(readChar == ' ' || readChar == '\n' || readChar == '\r') {
     fscanf(in_file, "%c", &readChar);
   }
-  while (readChar != '\n' && !feof(in_file)) {
+  while (readChar != '\n' && readChar != '\r' && !feof(in_file)) {
     if (readChar != ' ') {
       readWord.contents[wordIdx] = readChar;
       readWord.length ++;

@@ -68,12 +68,6 @@ POINT MirrorOf (POINT P, boolean SbX);
 /* Menghasilkan salinan P yang dicerminkan terhadap salah satu sumbu */
 /* Jika SbX bernilai true, maka dicerminkan terhadap sumbu X */
 /* Jika SbX bernilai false, maka dicerminkan terhadap sumbu Y */
-int Jarak0 (POINT P);
-/* Menghitung jarak P ke (0,0) */
-int Panjang (POINT P1, POINT P2);
-/* Menghitung panjang garis yang dibentuk P1 dan P2 */
-/* Perhatikanlah bahwa di sini spec fungsi kurang baik sebab menyangkut ADT Garis. */
-/* Tuliskan spec fungsi yang lebih tepat. */
 void Geser (POINT *P, int deltaX, int deltaY);
 /* I.S. P terdefinisi */
 /* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
@@ -92,8 +86,5 @@ void Mirror (POINT *P, boolean SbX);
 /* F.S. P dicerminkan tergantung nilai SbX atau SbY */
 /* Jika SbX true maka dicerminkan terhadap sumbu X */
 /* Jika SbX false maka dicerminkan terhadap sumbu Y */
-void Putar (POINT *P, int Sudut);
-/* I.S. P terdefinisi */
-/* F.S. P digeser sebesar Sudut derajat dengan sumbu titik (0,0) */
 
 #endif
