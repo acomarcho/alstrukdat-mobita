@@ -22,9 +22,15 @@ void buy(POINT mobitaLoc, POINT HQ, ListPos* inventory, int* money) {
       advWord();
       printf("\n");
       int gadget = wordToInt(currentWord);
-      if (gadget < 1 || gadget > 5)
-      {
+      while (gadget < 0 || gadget > 5 ){
         printf("Nomor gadget tidak valid.\n");
+        gadget = wordToInt(currentWord);
+        buy(mobitaLoc, HQ, inventory, money);
+        return;
+      }
+      if (gadget == 0)
+      {
+        printf("Anda memilih untuk kembali.\n");
       }
       else
       {
