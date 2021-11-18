@@ -12,4 +12,5 @@ void showHelp() {
   printf("9. HELP -> Untuk mengeluarkan list command dan kegunaannya\n");
   printf("10. RETURN -> Mengembalikan barang teratas di tas apabila memiliki ability return to sender.\n");
   printf("11. SAVE_GAME -> Menyimpan state game sekarang agar nanti bisa di-load.\n");
+  printf("12. EXIT -> Keluar dari permainan.\n");
 }

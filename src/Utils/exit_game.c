@@ -3,21 +3,29 @@
 void exitgame(boolean *end)
 /* Untuk keluar dari game bila di tengah-tengah permainan */
 {
-    char isQuit;
-    printf("Apakah Anda yakin untuk keluar dari game? (Y/N)\n");
-    scanf("ENTER COMMAND : %c", &isQuit);
-    while (isQuit != 'Y' || isQuit != 'N')
+    // char isQuit;
+    printf("======================================================================\n\n");
+    printf("Apakah Anda yakin untuk keluar dari game? (Y/N)\n\n");
+    printf("        ENTER COMMAND: ");
+    advWord();
+    printf("\n");
+    printf("======================================================================\n\n");
+    while (!(isWordEqual(currentWord, "Y") || isWordEqual(currentWord, "N")))
     {
-        printf("Maaf masukan tidak dikenali, silahkan masukkan ulang command anda !\n");
-        scanf("ENTER COMMAND : %c", &isQuit);
+        printf("Maaf masukan tidak dikenali, silahkan masukkan ulang command anda!\n");
+        exitgame(end);
+        return;
     }
-    if (isQuit == 'Y')
+    if (isWordEqual(currentWord, "Y"))
     {
-        end = true;
-        printf("Terima kasih sudah bermain\n");
+        
+        *end = true;
+        printf("[]=====================================[]\n");
+        printf("||      Terima kasih sudah bermain     ||\n");
+        printf("[]=====================================[]\n");
     }
-    else if (isQuit == 'N')
+    else if (isWordEqual(currentWord, "N"))
     {
-        end = false;
+        *end = false;
     }
 }

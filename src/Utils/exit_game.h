@@ -2,6 +2,7 @@
 #define EXITGAME_H
 
 #include "../Boolean/boolean.h"
+#include "../WordMachine/wordmachine.h"
 #include <stdio.h>
 
 void exitgame(boolean *end);
