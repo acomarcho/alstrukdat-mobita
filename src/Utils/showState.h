@@ -1,5 +1,5 @@
 #ifndef SHOWSTATE_H
-#define STATE_H
+#define SHOWSTATE_H
 
 #include "../FileMachine/filemachine.h"
 #include "../WordMachine/wordmachine.h"
