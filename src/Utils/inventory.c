@@ -8,7 +8,11 @@ void handleInventory(ListPos* inventory, List* inProgressList, Stack* bag, int* 
   advWord();
   printf("\n");
   int invIdx = wordToInt(currentWord) - 1;
-  if (LP_ELMT(*inventory, invIdx) == LP_VAL_UNDEF || invIdx < 0 || invIdx > 4)
+  if (invIdx == -1)
+  {
+    printf("Anda memilih untuk kembali.\n");
+  }
+  else if (LP_ELMT(*inventory, invIdx) == LP_VAL_UNDEF || invIdx < 0 || invIdx > 4)
   {
     printf("Tidak ada Gadget yang dapat digunakan!\n");
   }

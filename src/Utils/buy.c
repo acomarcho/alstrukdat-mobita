@@ -24,7 +24,6 @@ void buy(POINT mobitaLoc, POINT HQ, ListPos* inventory, int* money) {
       int gadget = wordToInt(currentWord);
       while (gadget < 0 || gadget > 5 ){
         printf("Nomor gadget tidak valid.\n");
-        gadget = wordToInt(currentWord);
         buy(mobitaLoc, HQ, inventory, money);
         return;
       }
